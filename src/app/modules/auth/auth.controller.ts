@@ -6,9 +6,9 @@ const loginUser = catchAsync(async (req, res) => {
     const result = await AuthServices.loginUserWithDB(req.body)
 
     sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+        statusCode: httpStatus.OK,
         success: true,
-        message: 'User registered successfully',
+        message: 'Login successful',
         data: result,
     })
 })
