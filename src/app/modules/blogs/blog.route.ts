@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.post(
     '/',
-    auth(USER_Role.user),
+    auth(USER_Role.admin, USER_Role.user),
     validation(blogValidation.blogValidationSchema),
     blogController.createBlog
 )
@@ -24,9 +24,5 @@ router.delete(
     auth(USER_Role.admin, USER_Role.user),
     blogController.deleteBlog
 )
-router.get(
-    '/',
-    auth(USER_Role.admin, USER_Role.user),
-    blogController.getAllBlogs
-)
+router.get('/', blogController.getAllBlogs)
 export const blogRoutes = router

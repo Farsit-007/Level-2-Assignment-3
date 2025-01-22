@@ -2,6 +2,8 @@ import AppError from '../../Errors/AppError'
 import { Blog } from '../blogs/blog.model'
 import { User } from '../user/user.model'
 import httpStatus from 'http-status'
+
+// Blocked as User
 const blockUserFromDB = async (id: string) => {
     const blockUser = await User.findByIdAndUpdate(
         id,
@@ -17,6 +19,7 @@ const blockUserFromDB = async (id: string) => {
     return blockUser
 }
 
+// Delete any blogs
 const DeleteBlogFromDB = async (id: string) => {
     const deleteUser = await Blog.findByIdAndDelete(id)
     if (!deleteUser) {

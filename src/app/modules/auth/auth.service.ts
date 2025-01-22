@@ -5,8 +5,7 @@ import { TLoginUser } from './auth.interface'
 import httpStatus from 'http-status'
 import { createToken } from './auth.utils'
 const loginUserWithDB = async (payload: TLoginUser) => {
-    const user = await User.isUserExists(payload?.email)
-    console.log(user)
+    const user = await User.isUserExists(payload?.email) // Check User exist or not with the Statics method
     if (!user) {
         throw new AppError(httpStatus.NOT_FOUND, 'User is not found')
     }
@@ -14,13 +13,15 @@ const loginUserWithDB = async (payload: TLoginUser) => {
     if (isUserBlock) {
         throw new AppError(httpStatus.NOT_FOUND, 'User is Blocked')
     }
-    console.log(payload?.password, user?.password)
+
     if (!(await User.isPasswordMatched(payload?.password, user?.password)))
+        // Check if the password same or not
         throw new AppError(httpStatus.FORBIDDEN, 'Password dose not matched')
     const jwtPayload = {
         userEmail: user?.email,
         role: user?.role,
     }
+    // Make a  access token for login
     const accessToken = createToken(
         jwtPayload,
         config.jwt_access_secret as string,
