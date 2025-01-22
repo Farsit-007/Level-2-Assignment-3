@@ -23,7 +23,7 @@ const updateBlog = catchAsync(async (req, res, next) => {
         req?.user?.userEmail
     )
     sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+        statusCode: httpStatus.OK,
         success: true,
         message: 'Blog updated successfully',
         data: result,
