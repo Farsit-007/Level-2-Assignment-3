@@ -16,7 +16,7 @@ const loginUserWithDB = async (payload: TLoginUser) => {
 
     if (!(await User.isPasswordMatched(payload?.password, user?.password)))
         // Check if the password same or not
-        throw new AppError(httpStatus.FORBIDDEN, 'Password dose not matched')
+        throw new AppError(httpStatus.FORBIDDEN, 'Invalid credentials')
     const jwtPayload = {
         userEmail: user?.email,
         role: user?.role,

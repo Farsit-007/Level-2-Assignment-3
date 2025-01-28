@@ -4,7 +4,7 @@ import { TErrorSecure, TGenericErrorResponse } from '../interface/error'
 const handleValidationError = (
     err: mongoose.Error.ValidationError
 ): TGenericErrorResponse => {
-    const errorSource: TErrorSecure = Object.values(err.errors).map(
+    const details = Object.values(err.errors).map(
         (val: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
             return {
                 path: val?.path,
@@ -13,14 +13,19 @@ const handleValidationError = (
         }
     )
 
+    const error: TErrorSecure = {
+        details: {
+            path: details[0].path,
+            message: details[0].message,
+        },
+    }
+
     const statusCode = 400
     return {
         statusCode,
         message: 'Validation Error',
-        errorSource,
+        error,
     }
 }
 
 export default handleValidationError
-
-
