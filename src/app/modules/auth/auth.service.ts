@@ -22,14 +22,14 @@ const loginUserWithDB = async (payload: TLoginUser) => {
         role: user?.role,
     }
     // Make a  access token for login
-    const accessToken = createToken(
+    const token = createToken(
         jwtPayload,
         config.jwt_access_secret as string,
         '1d'
     )
 
     return {
-        accessToken,
+        token,
     }
 }
 
